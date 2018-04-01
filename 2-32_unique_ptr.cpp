@@ -6,7 +6,7 @@ using namespace std;
 class MyClass
 {
 private:
-    int m_Value { 10 };
+    int m_Value{ 10 };
 
 public:
     MyClass()
@@ -27,7 +27,7 @@ public:
 
 int main()
 {
-    unique_ptr<MyClass> uniquePointer { make_unique<MyClass>() };
+    unique_ptr<MyClass> uniquePointer{ make_unique<MyClass>() };
     cout << uniquePointer->GetValue() << endl;
 
     return 0;

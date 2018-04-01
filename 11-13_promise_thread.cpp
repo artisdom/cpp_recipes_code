@@ -3,6 +3,8 @@
 
 using namespace std;
 
+using FactorialPromise = promise< long long >;
+
 long long Factorial(unsigned int value)
 {
     this_thread::sleep_for(chrono::seconds(2));
@@ -10,14 +12,19 @@ long long Factorial(unsigned int value)
     return value == 1 ? 1 : value * Factorial(value - 1);
 }
 
+void ThreadTask(FactorialPromise& threadPromise, unsigned int value)
+{
+    threadPromise.set_value(Factorial(value));
+}
+
 int main(int argc, char const *argv[])
 {
     using namespace chrono;
 
-    packaged_task<long long(unsigned int)> task{ Factorial };
-    future<long long> taskFuture{ task.get_future() };
+    FactorialPromise promise;
+    future<long long> taskFuture{ promise.get_future() };
 
-    thread taskThread{ std::move(task), 3 };
+    thread taskThread{ ThreadTask, std::move(promise), 3 };
 
     while(taskFuture.wait_until(system_clock::now() + seconds(1)) != future_status::ready)
     {

@@ -31,9 +31,9 @@ public:
     }
 };
 
-using MyUniquePtr = unique_ptr<MyClass>;
+using MySharedPtr = shared_ptr<MyClass>;
 
-auto PassUniquePtr(MyUniquePtr ptr)
+auto PassSharedPtr(MySharedPtr ptr)
 {
     cout << "In Function Name: " << ptr->GetName() << endl;
     return ptr;
@@ -41,16 +41,17 @@ auto PassUniquePtr(MyUniquePtr ptr)
 
 int main()
 {
-    auto uniquePointer = make_unique<MyClass>("MyClass", 10);
+    auto sharedPointer = make_shared<MyClass>("MyClass", 10);
 
-    auto newUniquePointer = PassUniquePtr(move(uniquePointer));
-
-    if (uniquePointer)
     {
-        cout << "First Object Name: " << uniquePointer->GetName() << endl;
-    }
+        auto newSharedPointer = PassSharedPtr(sharedPointer);
+        if (sharedPointer)
+        {
+            cout << "First Object Name: " << sharedPointer->GetName() << endl;
+        }
 
-    cout << "Second Object Name: " << newUniquePointer->GetName() << endl;
+        cout << "Second Object Name: " << newSharedPointer->GetName() << endl;
+    }
 
     return 0;
 }

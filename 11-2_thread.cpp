@@ -20,8 +20,7 @@ int main(int argc, char const *argv[])
     {
         thread myThread{ ThreadTask };
         cout << "Output from main" << endl;
-        // myThread.join();
-        myThread.detach();
+        myThread.join();
     }
     else
     {

@@ -13,5 +13,10 @@ int main(int argc, char* argv[])
         cout << normalArray[i] << endl;
     }
 
+    for( auto&& number : normalArray)
+    {
+        cout << number << endl;
+    }
+
     return 0;
 }

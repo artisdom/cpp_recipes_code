@@ -97,5 +97,9 @@ int main(int argc, char* argv[])
         cout << "Vehicle name: " << myCar.GetName() << endl;
 
         myAssignedCar = move(myCar);
+        cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
     }
+
+    cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
+    return 0;
 }
