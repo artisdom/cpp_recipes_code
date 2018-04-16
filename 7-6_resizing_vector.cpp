@@ -1,5 +1,5 @@
 /*
- * 7-7_vector_emplace.cpp
+ * 7-6_resizing_vector.cpp
  *
  *  Created on: Apr 4, 2016
  *      Author: feng
@@ -19,14 +19,24 @@ int main(int argc, char* argv[])
 		2,
 		3,
 		4,
-		5
+		5,
+		6,
+		7,
+		8,
+		9,
+		10,
+		11,
+		12,
+		13,
+		14,
+		15,
+		16
 	};
 
 	cout << "The size is: " << stlVector.size() << endl;
 	cout << "The capacity is: " << stlVector.capacity() << endl;
 
-	auto iterator = stlVector.begin() + 2;
-	stlVector.emplace(iterator, 6);
+	stlVector.emplace_back(17);
 
 	cout << "The size is: " << stlVector.size() << endl;
 	cout << "The capacity is: " << stlVector.capacity() << endl;

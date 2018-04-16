@@ -1,3 +1,9 @@
+/*
+ * 5-22_deep_copy.cpp
+ *
+ *  Created on: Apr 3, 2016
+ *      Author: feng
+ */
 #include <cinttypes>
 #include <cstring>
 #include <iostream>
@@ -6,74 +12,78 @@ using namespace std;
 
 class Vehicle
 {
-public:
-    Vehicle() = default;
-
-    Vehicle(const char* name, uint32_t numberOfWheels) : m_NumberOfWheels{ numberOfWheels }
-    {
-        const uint32_t length = strlen(name) + 1; //Add space for null terminator
-        m_Name = new char[length]{};
-        strcpy(m_Name, name);
-    }
-    ~Vehicle()
-    {
-        delete m_Name;
-        m_Name = nullptr;
-    }
-
-    Vehicle(const Vehicle& other)
-    {
-        const uint32_t length = strlen(other.m_Name) + 1;
-        m_Name = new char[length]{};
-        strcpy(m_Name, other.m_Name);
-
-        m_NumberOfWheels = other.m_NumberOfWheels;
-    }
-
-    Vehicle& operator=(const Vehicle& other)
-    {
-        if (m_Name != nullptr)
-        {
-            delete m_Name;
-        }
-
-        const uint32_t length = strlen(other.m_Name) + 1;
-        m_Name = new char[length]{};
-        strcpy(m_Name, other.m_Name);
-
-        m_NumberOfWheels = other.m_NumberOfWheels;
-
-        return *this;
-    }
-
-    char* GetName()
-    {
-        return m_Name;
-    }
-
-    uint32_t GetNumberOfWheels()
-    {
-        return m_NumberOfWheels;
-    }
-
 private:
-    char* m_Name{};
-    uint32_t m_NumberOfWheels{};
+	char* m_Name{};
+	uint32_t m_NumberOfWheels{};
+
+public:
+	Vehicle() = default;
+
+	Vehicle(const char* name, uint32_t numberOfWheels) : m_NumberOfWheels{ numberOfWheels }
+	{
+		const uint32_t length = strlen(name) + 1;
+		m_Name = new char[length]{};
+		strcpy(m_Name, name);
+	}
+
+	~Vehicle()
+	{
+		delete m_Name;
+		m_Name = nullptr;
+	}
+
+	Vehicle(const Vehicle& other)
+	{
+		const uint32_t length = strlen(other.m_Name) + 1;
+		m_Name = new char[length]{};
+		strcpy(m_Name, other.m_Name);
+
+		m_NumberOfWheels = other.m_NumberOfWheels;
+	}
+
+	Vehicle& operator=(const Vehicle& other)
+	{
+		if (m_Name != nullptr)
+		{
+			delete m_Name;
+		}
+
+		const uint32_t length = strlen(other.m_Name) + 1;
+		m_Name = new char[length]{};
+		strcpy(m_Name, other.m_Name);
+
+		m_NumberOfWheels = other.m_NumberOfWheels;
+
+		return *this;
+	}
+
+	char* GetName()
+	{
+		return m_Name;
+	}
+
+	uint32_t GetNumberOfWheels()
+	{
+		return m_NumberOfWheels;
+	}
 };
 
 int main(int argc, char* argv[])
 {
-    Vehicle myAssignedCar;
+	Vehicle myAssignedCar;
 
-    {
-        Vehicle myCar{ "myCar", 4 };
-        cout << "Vehicle name: " << myCar.GetName() << endl;
+	{
+		Vehicle myCar{ "myCar", 4 };
+		cout << "Vehicle name: " << myCar.GetName() << endl;
 
-        myAssignedCar = myCar;
-        cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
-    }
+		myAssignedCar = myCar;
+		cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
+	}
 
-    cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
+	cout << "Vehicle name: " << myAssignedCar.GetName() << endl;
 
-    return 0;
+	return 0;
 }
+
+
+

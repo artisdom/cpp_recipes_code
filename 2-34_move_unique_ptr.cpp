@@ -1,5 +1,5 @@
 /*
- * 2-35_shared_ptr.cpp
+ * 2-34_move_unique_ptr.cpp
  *
  *  Created on: Apr 3, 2016
  *      Author: feng
@@ -17,7 +17,7 @@ private:
 	int m_Value;
 
 public:
-	MyClass(const string& name, int value) : m_Name{ name }, m_Value{ value }
+	MyClass(const string& name, int value) : m_Name{ name }, m_Value { value }
 	{
 		cout << "Constructing!" << endl;
 	}
@@ -38,9 +38,9 @@ public:
 	}
 };
 
-using MySharedPtr = shared_ptr<MyClass>;
+using MyUniquePtr = unique_ptr<MyClass>;
 
-auto PassSharedPtr(MySharedPtr ptr)
+auto PassUniquePtr(MyUniquePtr ptr)
 {
 	cout << "In Function Name: " << ptr->GetName() << endl;
 	return ptr;
@@ -48,17 +48,16 @@ auto PassSharedPtr(MySharedPtr ptr)
 
 int main()
 {
-	auto sharedPointer = make_shared<MyClass>("MyClass", 10);
+	auto uniquePointer = make_unique<MyClass>("MyClass", 10);
+	auto newUniquePointer = PassUniquePtr(move(uniquePointer));
 
+	if (uniquePointer)
 	{
-		auto newSharedPointer = PassSharedPtr(sharedPointer);
-		if (sharedPointer)
-		{
-			cout << "First Object Name: " << sharedPointer->GetName() << endl;
-		}
-
-		cout << "Second Object Name: " << newSharedPointer->GetName() << endl;
+		cout << "First Object Name: " << uniquePointer->GetName() << endl;
 	}
+
+	cout << "Second Object Name: " << newUniquePointer->GetName() << endl;
 
 	return 0;
 }
+

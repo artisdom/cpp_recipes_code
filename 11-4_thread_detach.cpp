@@ -1,3 +1,10 @@
+/*
+ * 11-4_thread_detach.cpp
+ *
+ *  Created on: Apr 5, 2016
+ *      Author: feng
+ */
+
 #include <iostream>
 #include <thread>
 
@@ -5,28 +12,32 @@ using namespace std;
 
 void ThreadTask()
 {
-    for (unsigned int i{ 0 }; i < 20; ++i)
-    {
-        cout << "Output from thread" << endl;
-    }
+	for (unsigned int i = 0; i < 20; ++i)
+	{
+		cout << "Output from thread" << endl;
+	}
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char* argv[])
 {
-    const unsigned int numberOfProcessors{ thread::hardware_concurrency() };
-    cout << "This system can run " << numberOfProcessors << " concurrent tasks" << endl;
+	const unsigned int numberOfProcessors{ thread::hardware_concurrency() };
 
-    if (numberOfProcessors > 1)
-    {
-        thread myThread{ ThreadTask };
-        cout << "Output from main" << endl;
-        // myThread.join();
-        myThread.detach();
-    }
-    else
-    {
-        cout << "CPU does not have multiple cores." << endl;
-    }
+	cout << "This system can run " << numberOfProcessors << " concurrent tasks" << endl;
 
-    return 0;
+	if (numberOfProcessors > 1)
+	{
+		thread myThread{ ThreadTask };
+
+		cout << "Output from main" << endl;
+
+		myThread.detach();
+	}
+	else
+	{
+		cout << "CPU does not have multiple cores." << endl;
+	}
+
+	return 0;
 }
+
+

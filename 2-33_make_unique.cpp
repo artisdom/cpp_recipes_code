@@ -1,5 +1,5 @@
 /*
- * 2-35_shared_ptr.cpp
+ * 2-33_make_unique.cpp
  *
  *  Created on: Apr 3, 2016
  *      Author: feng
@@ -9,6 +9,17 @@
 #include <memory>
 
 using namespace std;
+
+#if __cplusplus > 200400L && __cplusplus < 201200L
+
+template <typename T, typename... Args>
+
+unique_ptr<T> make_unique(Args... args)
+{
+	return unique_ptr<T>{ new T(args...) };
+}
+
+#endif
 
 class MyClass
 {
@@ -38,27 +49,12 @@ public:
 	}
 };
 
-using MySharedPtr = shared_ptr<MyClass>;
-
-auto PassSharedPtr(MySharedPtr ptr)
-{
-	cout << "In Function Name: " << ptr->GetName() << endl;
-	return ptr;
-}
-
 int main()
 {
-	auto sharedPointer = make_shared<MyClass>("MyClass", 10);
+	unique_ptr<MyClass> uniquePointer{ make_unique<MyClass>("MyClass", 10) };
 
-	{
-		auto newSharedPointer = PassSharedPtr(sharedPointer);
-		if (sharedPointer)
-		{
-			cout << "First Object Name: " << sharedPointer->GetName() << endl;
-		}
-
-		cout << "Second Object Name: " << newSharedPointer->GetName() << endl;
-	}
+	cout << uniquePointer->GetName() << endl;
+	cout << uniquePointer->GetValue() << endl;
 
 	return 0;
 }

@@ -1,34 +1,34 @@
 #include <iostream>
 #include <memory>
+#include <cstdio>
 
 using namespace std;
 
 class MyClass
 {
 private:
-    int m_Value{ 10 };
+	int m_Value { 10 };
 
 public:
-    MyClass()
-    {
-        cout << "Constructing!" << endl;
-    }
+	MyClass()
+	{
+		cout << "Constructing!" << endl;
+	}
+	~MyClass()
+	{
+		cout << "Destructing!" << endl;
+	}
 
-    ~MyClass()
-    {
-        cout << "Destructing!" << endl;
-    }
-
-    int GetValue() const
-    {
-        return m_Value;
-    }
+	int GetValue() const
+	{
+		return m_Value;
+	}
 };
 
 int main()
 {
-    unique_ptr<MyClass> uniquePointer{ make_unique<MyClass>() };
-    cout << uniquePointer->GetValue() << endl;
+	unique_ptr<MyClass> uniquePointer{ make_unique<MyClass>() };
+	cout << uniquePointer->GetValue() << endl;
 
-    return 0;
+	return 0;
 }
